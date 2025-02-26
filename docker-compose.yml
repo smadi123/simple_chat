@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backend-image
+    volumes:
+      - ./data:/data
+
+  frontend:
+    image: frontend-image
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
