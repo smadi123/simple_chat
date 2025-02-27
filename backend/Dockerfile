@@ -14,7 +14,7 @@ RUN nohup ollama serve > /var/log/ollama.log 2>&1 & \
     sleep 10 && \
     # Pull the DeepSeek model
     ollama pull deepseek-r1:8b && \
-    ollama pull granite3.2:8b && \
+    ollama pull granite3.2:2b && \
     # Give some time for the model to be fully downloaded and processed
     sleep 60
 

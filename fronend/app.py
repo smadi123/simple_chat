@@ -8,7 +8,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from pydantic import BaseModel
 
 # Update to point to the backend container
-llm = ChatOllama(model="granite3.2:8b", base_url="http://backend:11434", streaming=True)
+llm = ChatOllama(model="granite3.2:2b", base_url="http://backend:11434", streaming=True)
 llm2 = ChatOllama(model="deepseek-r1:8b", base_url="http://backend:11434", streaming=True)
 
 # Initialize session state for model selection if it doesn't exist
@@ -65,23 +65,57 @@ st.markdown(
     <style>
     @font-face {
         font-family: 'Cairo Play';
-        src: url('static/fonts/CairoPlay-Medium.ttf') format('ttf'),
+        src: url('static/fonts/CairoPlay-Regular.ttf') format('truetype');
         font-weight: 400;
         font-style: normal;
+        font-display: swap;
     }
     @font-face {
         font-family: 'Cairo Play';
-        src: url('static/fonts/CairoPlay-SemiBold.ttf') format('ttf'),
-        font-weight: 700;
+        src: url('static/fonts/CairoPlay-Medium.ttf') format('truetype');
+        font-weight: 500;
         font-style: normal;
+        font-display: swap;
     }
-    body {
+    @font-face {
+        font-family: 'Cairo Play';
+        src: url('static/fonts/CairoPlay-SemiBold.ttf') format('truetype');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    * {
+        font-family: 'Cairo Play', sans-serif !important;
+    }
+    
+    .stApp {
+        direction: rtl;
+    }
+    
+    .stMarkdown, 
+    .stChatMessage,
+    .stChatInputContainer,
+    .stSelectbox,
+    .st-emotion-cache-16idsys,
+    .st-emotion-cache-1nv5vhh {
+        font-family: 'Cairo Play', sans-serif !important;
         direction: rtl;
         text-align: right;
-        font-family: 'Cairo Play', sans-serif !important;
     }
-    .stMarkdown, .stChatMessage {
-        font-family: 'Cairo Play', sans-serif !important;
+    
+    .stChatMessage > div {
+        direction: rtl;
+        text-align: right;
+    }
+    
+    .st-emotion-cache-16idsys p {
+        text-align: right;
+    }
+    
+    .stChatInput {
+        direction: rtl;
+        text-align: right;
     }
     </style>
     """,

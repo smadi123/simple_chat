@@ -2,8 +2,11 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Copy the static files
-COPY static /app/static
+# Create directories for static files
+RUN mkdir -p /app/static/fonts
+
+# Copy the static files and Streamlit config
+COPY static/fonts/*.ttf /app/static/fonts/
 COPY .streamlit /app/.streamlit
 
 COPY requirements.txt .
