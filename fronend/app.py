@@ -8,20 +8,47 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from pydantic import BaseModel
 
 # Update to point to the backend container
-llm = ChatOllama(model="deepseek-r1:14b", base_url="http://backend:11434")
+llm = ChatOllama(model="granite3.2:8b", base_url="http://backend:11434", streaming=True)
+llm2 = ChatOllama(model="deepseek-r1:8b", base_url="http://backend:11434", streaming=True)
 
-prompt = ChatPromptTemplate.from_messages(
-    [
-        (
-            "system",
-            "You are an AI chatbot having a conversation with a human. Use the following context to understand the human question and answer in Arabic. Don't include emojis in your answer. ",
-        ),
-        MessagesPlaceholder(variable_name="chat_history"),
-        ("human", "{input}"),
-    ]
+# Initialize session state for model selection if it doesn't exist
+if 'current_model' not in st.session_state:
+    st.session_state.current_model = 'الأول'  # Set default model to first one
+
+# Add model selection dropdown with default value
+model_option = st.sidebar.selectbox(
+    'اختر النموذج',
+    ('الأول', 'الثاني'),
+    index=0,  # Set default index to first option
+    format_func=lambda x: 'النموذج ' + x,
+    key='current_model'  # Use session state to maintain selection
 )
 
-chain = prompt | llm
+# Select the appropriate model based on user choice
+selected_llm = llm if model_option == 'الأول' else llm2
+
+prompt = ChatPromptTemplate.from_messages([
+    (
+        "system",
+        """You are a helpful AI assistant for the Joint Command and Staff College.
+        Your role is to:
+        - Provide clear and concise answers in Arabic language
+        - Use formal Arabic (الفصحى) in your responses
+        - Be direct and to the point
+        - Be respectful and professional
+        - Focus on accuracy and clarity
+        - When uncertain, acknowledge limitations
+        - Do not use emojis or informal language
+        - Maintain a consistent tone throughout the conversation
+        
+        Use the conversation history and context to provide relevant and coherent responses."""
+    ),
+    MessagesPlaceholder(variable_name="chat_history"),
+    ("human", "{input}"),
+])
+
+# Update chain to use selected model
+chain = prompt | selected_llm
 
 history = StreamlitChatMessageHistory()
 
@@ -36,9 +63,25 @@ chain_with_history = RunnableWithMessageHistory(
 st.markdown(
     """
     <style>
+    @font-face {
+        font-family: 'Cairo Play';
+        src: url('static/fonts/CairoPlay-Medium.ttf') format('ttf'),
+        font-weight: 400;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Cairo Play';
+        src: url('static/fonts/CairoPlay-SemiBold.ttf') format('ttf'),
+        font-weight: 700;
+        font-style: normal;
+    }
     body {
         direction: rtl;
         text-align: right;
+        font-family: 'Cairo Play', sans-serif !important;
+    }
+    .stMarkdown, .stChatMessage {
+        font-family: 'Cairo Play', sans-serif !important;
     }
     </style>
     """,

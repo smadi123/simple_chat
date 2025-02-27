@@ -13,9 +13,10 @@ RUN nohup ollama serve > /var/log/ollama.log 2>&1 & \
     # Wait for Ollama server to start
     sleep 10 && \
     # Pull the DeepSeek model
-    ollama pull deepseek-r1:14b && \
+    ollama pull deepseek-r1:8b && \
+    ollama pull granite3.2:8b && \
     # Give some time for the model to be fully downloaded and processed
-    sleep 30
+    sleep 60
 
 # Stage 2: Create the final image
 FROM ollama/ollama:latest

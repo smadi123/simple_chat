@@ -5,10 +5,7 @@ services:
     image: backend
     volumes:
       - ./data:/data
-#    deploy:
-#      resources:
-#        limits:
-#          memory: 12g
+
   frontend:
     image: frontend
     ports:
