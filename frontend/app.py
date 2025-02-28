@@ -30,7 +30,7 @@ selected_llm = llm if model_option == 'الأول' else llm2
 prompt = ChatPromptTemplate.from_messages([
     (
         "system",
-        """You are a helpful AI assistant for the Joint Command and Staff College.
+        """You are a helpful AI assistant for the (كلية القيادة والأركان المشتركة ).
         Your role is to:
         - Provide clear and concise answers in Arabic language
         - Use formal Arabic (الفصحى) in your responses
