@@ -7,8 +7,15 @@ services:
       - ./data:/data
 
   frontend:
-    image: frontend_twin2
+    build:
+      context: ./frontend
     ports:
       - "8501:8501"
+    volumes:
+      - ./frontend:/app
+      - ./frontend/static:/app/static
+      - ./frontend/.streamlit:/app/.streamlit
+    environment:
+      - WATCHDOG_TIMEOUT=10
     depends_on:
       - backend
