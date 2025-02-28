@@ -2,4 +2,4 @@
 enableStaticServing = true
 
 [theme]
-font = "Cairo Play"
+font = "monospace"

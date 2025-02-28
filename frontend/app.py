@@ -59,34 +59,21 @@ chain_with_history = RunnableWithMessageHistory(
     history_messages_key="chat_history",
 )
 
-# Add custom CSS for RTL direction
+# Add custom CSS for RTL direction and local fonts
 st.markdown(
     """
     <style>
     @font-face {
         font-family: 'Cairo Play';
-        src: url('static/fonts/CairoPlay-Regular.ttf') format('truetype');
-        font-weight: 400;
+        src: url('app/static/fonts/CairoPlay-SemiBold.woff2') format('truetype');
+        font-weight: 300;
         font-style: normal;
         font-display: swap;
     }
-    @font-face {
-        font-family: 'Cairo Play';
-        src: url('static/fonts/CairoPlay-Medium.ttf') format('truetype');
-        font-weight: 500;
-        font-style: normal;
-        font-display: swap;
-    }
-    @font-face {
-        font-family: 'Cairo Play';
-        src: url('static/fonts/CairoPlay-SemiBold.ttf') format('truetype');
-        font-weight: 600;
-        font-style: normal;
-        font-display: swap;
-    }
-    
+
     * {
         font-family: 'Cairo Play', sans-serif !important;
+        font-size: 18px;
     }
     
     .stApp {
@@ -106,16 +93,21 @@ st.markdown(
     
     .stChatMessage > div {
         direction: rtl;
+        font-size: 16px;
         text-align: right;
+        font-family: 'Cairo Play', sans-serif !important;
     }
     
     .st-emotion-cache-16idsys p {
         text-align: right;
+        font-size: 16px;
     }
     
     .stChatInput {
         direction: rtl;
         text-align: right;
+        font-size: 16px;
+        font-family: 'Cairo Play', sans-serif !important;
     }
     </style>
     """,
